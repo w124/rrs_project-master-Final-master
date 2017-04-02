@@ -369,9 +369,9 @@ var SUser = mongoose.model('SUser', SUserSchema);
           return next(err);
         } else {
           
-          res.render('showRoom', {items: response});
+          res.render('#', {items: response});
         }
-        console.log("show User");
+        console.log("ShowUSerLOG");
       });
 
 };

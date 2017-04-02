@@ -52,4 +52,17 @@ app.route('/insertBL')
 
 app.route('/deleteBL')
     .post(user.deleteBL);
+
+app.route('/insertUSer')
+    .post(user.insertUser);
+
+app.route('/showUSer')
+    .get(user.showUser);
+
+app.route('/showJsonUSer')
+    .get(user.showJsonUser);
+
+
+
+
 };
