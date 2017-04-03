@@ -62,7 +62,11 @@ app.route('/showUSer')
 app.route('/showJsonUSer')
     .get(user.showJsonUser);
 
-
+app.route('/insertRRS')
+    .post(user.insertRRS);
+    
+app.route('/showJsonRRS')
+    .get(user.showJsonRRS);
 
 
 };

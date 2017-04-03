@@ -550,32 +550,108 @@ BLUser
 });
 }
 ////////////////////////////////////// ConfirmedRRS /////////////////////////////////////////////
-/*var ConfirmedRRS = mongoose.Schema({
-  username: String,
-  email: String,
-  firstName: String,
-  lastName: String,
+var ConfirmedRRSSchema = mongoose.Schema({
+  roomName: String,
+  User: String,
+  Roomtype: String,
+  detail: String,
+  Support : Number,
+  floor: {type: Number, min: 1, max: 6},
+  Officer: String,
   faculty: String,
   SID: String,
-  date: { 
+   date: { 
       type: Date, 
       default: Date.now() 
-    }
-}, 
+   },
+   t800: { 
+      type: String, 
+      default: 0
+   },
+   t900: { 
+      type: String, 
+      default: 0
+   },
+   t1000: { 
+      type: String, 
+      default: 0
+   },
+   t1100: { 
+      type: String, 
+      default: 0
+   },
+   t1200: { 
+      type: String, 
+      default: 0
+   },
+   t1300: { 
+      type: String, 
+      default: 0
+   },
+   t1400: { 
+      type: String, 
+      default: 0
+   },
+   t1500: { 
+      type: String, 
+      default: 0
+   },
+   t1600: { 
+      type: String, 
+      default: 0
+   },
+   },
 {collection: 'confirmRRS'}
 );
-var confirmRRS = mongoose.model('confirmRRS', ConfirmedRRS);
-exports.insertBL = function(req, res, next) {
+var confirmRRS = mongoose.model('confirmRRS', ConfirmedRRSSchema);
+
+exports.insertRRS = function(req, res, next) {
         var  dateTime = new Date();
       var item = {
-
-        : req.body.FLName,
+        roomName: req.body.roomName,
+        User: req.body.User,
+        Roomtype: req.body.Roomtype,
+        Support: req.body.Support,
+        floor: req.body.floor,
         SID: req.body.SID,
+        Officer: req.body.Officer,
       // var  date = new Date();
       };
 
       var data = new confirmRRS(item);
       data.save() 
-      res.redirect('/showBL');
+      /*res.redirect('/showRRS');*/
 };
-*/
+exports.deleteRRS = function(req, res, next) {
+      var id = req.body.id;
+        confirmRRS.findByIdAndRemove(id).exec();
+        console.log("delete ID")
+        res.redirect('/showRRS');
+};
+
+exports.showJsonRRS = function (req, res) {
+confirmRRS
+.find()
+.populate('File')
+.sort({date: -1})
+.exec(function (err, confirmRRS) {
+  if (err) return handleError(err);
+  console.log('The creator is %s', confirmRRS);
+  // prints "The creator is Aaron"
+  res.json(confirmRRS);
+});
+}
+
+
+/* exports.showRRS = function(req, res, next) {
+      confirmRRS.findOne({id : req.param('id')}, function(err, response) {
+        if (err) {
+          return next(err);
+        } else {
+          
+          res.render('QR', {items: response});
+        }
+        console.log("QR_User");
+      });
+
+};*/
